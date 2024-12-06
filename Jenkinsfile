@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'node02'  
+        label 'node02'  //deploy on specific node
     }
 
     environment {

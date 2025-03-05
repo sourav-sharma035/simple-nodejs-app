@@ -1,11 +1,10 @@
 pipeline {
-    agent {
-        label 'node02'  //deploy on specific node
-    }
-
+    agent any
+    tools {
+        nodejs "NodeJS_20"
+    }  
     environment {
-        // Set environment variables (optional)
-        DEPLOY_PATH = '/home/node2/simple-nodejs-app' // Change to your app's deployment path
+        CI = 'true'
     }
 
     stages {
@@ -13,7 +12,6 @@ pipeline {
             steps {
                 // Pull the Laravel application from GitHub
                 git branch: 'main', 
-                credentialsId: 'credentialsId',
                 url: 'https://github.com/sourav-sharma035/simple-nodejs-app.git'
             }
         }
@@ -30,9 +28,7 @@ pipeline {
         stage('Deploy to Server') {
             steps {
                 // Copy files to the deployment directory
-                 sh '''
-                 rsync -avz ./ ${DEPLOY_PATH}/
-                '''
+                echo 'Deploying Application...'
 
             }
         }
